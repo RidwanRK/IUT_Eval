@@ -30,7 +30,7 @@ function WindowStatusLine({ row, window }: { row: HistoryRow; window: HistoryWin
   // Submitted rows link to the read-only answers view.
   return (
     <Link
-      href={`/student/feedback/${row.assignment.id}/${window.type}`}
+      href={`/student/feedback/${row.assignment.id}/${window.type}?view=answers`}
       aria-label={`${t.viewAnswers}, ${label.toLowerCase()}, ${row.course.title}, ${row.instructor.name}`}
       className="hover:bg-canvas -mx-2 flex min-h-12 items-center justify-between gap-3 rounded-xl px-2 py-1"
     >

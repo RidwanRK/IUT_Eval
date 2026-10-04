@@ -1,22 +1,21 @@
-import Link from 'next/link';
-import { buttonStyles } from '@/components/ui/button';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { FeedbackRoute } from '@/components/features/feedback/feedback-route';
 
-/** Placeholder. The feedback flow is built in Stage 3. */
-export default async function FeedbackPlaceholderPage({
+export const metadata: Metadata = { title: 'Feedback' };
+
+export default async function FeedbackPage({
   params,
 }: {
   params: Promise<{ assignmentId: string; window: string }>;
 }) {
   const { assignmentId, window } = await params;
+  if (window !== 'midterm' && window !== 'final') notFound();
+
   return (
-    <main className="mx-auto max-w-md px-4 py-16">
-      <h1 className="text-2xl font-extrabold tracking-tight">Feedback</h1>
-      <p className="text-muted mt-2">
-        {window} feedback for {assignmentId} is coming in the next stage.
-      </p>
-      <Link href="/student" className={buttonStyles({ className: 'mt-6' })}>
-        Back to home
-      </Link>
-    </main>
+    <Suspense fallback={null}>
+      <FeedbackRoute assignmentId={assignmentId} window={window} />
+    </Suspense>
   );
 }

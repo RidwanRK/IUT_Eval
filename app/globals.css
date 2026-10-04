@@ -125,10 +125,12 @@ body {
 }
 
 /* Visible focus everywhere. Dark ring with a gap so it shows on red and white alike. */
-:focus-visible {
-  outline: 3px solid var(--color-ink);
-  outline-offset: 2px;
-  border-radius: 0.5rem;
+@layer base {
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
 }
 
 ::selection {

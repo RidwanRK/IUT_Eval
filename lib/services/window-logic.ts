@@ -79,3 +79,8 @@ export function editableUntilText(window: Timing): string {
 export function isClosingSoon(window: Timing, now: Date): boolean {
   return getWindowStatus(window, now) === 'open' && daysUntilClose(window, now) <= 1;
 }
+
+/** "2026-10-25" in the university's time zone. Used where only the date should be stored. */
+export function toDateOnly(date: Date): string {
+  return dayFormat.format(date);
+}

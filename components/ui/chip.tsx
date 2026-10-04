@@ -10,13 +10,20 @@ import { cn } from '@/lib/utils';
  */
 export const Chip = forwardRef<
   HTMLButtonElement,
-  ButtonHTMLAttributes<HTMLButtonElement> & { selected?: boolean }
->(function Chip({ selected = false, className, children, type = 'button', ...props }, ref) {
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    selected?: boolean;
+    /** False for chips that trigger an action (like starter phrases) instead of toggling. */
+    toggle?: boolean;
+  }
+>(function Chip(
+  { selected = false, toggle = true, className, children, type = 'button', ...props },
+  ref,
+) {
   return (
     <button
       ref={ref}
       type={type}
-      aria-pressed={selected}
+      aria-pressed={toggle ? selected : undefined}
       className={cn(
         'inline-flex min-h-12 items-center gap-2 rounded-full border px-4 text-[0.95rem] font-semibold transition-colors duration-150 active:scale-[0.98] disabled:opacity-50 motion-reduce:active:scale-100',
         selected

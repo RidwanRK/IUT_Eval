@@ -212,6 +212,115 @@ export const copy = {
     errorBody: 'We could not load your notifications.',
   },
 
+  flow: {
+    anonymity:
+      'Your teacher never sees your name. Your identity is kept separate from your answers. Only authorised administrators can look it up, and only to handle abuse or misconduct.',
+    helpLink: 'Help and privacy',
+    exit: 'Save and leave',
+    exitHint: 'Your answers are saved on this device.',
+
+    guard: {
+      upcomingTitle: 'This one is not open yet',
+      upcomingBody: (windowLabel: string, date: string) =>
+        `${windowLabel} feedback opens around ${date}. Come back then.`,
+      closedTitle: 'This window has closed',
+      closedBody: (date: string) => `It closed on ${date}. Nothing you need to do.`,
+      closedSubmittedBody: (date: string) =>
+        `It closed on ${date}. Thanks for sharing your feedback.`,
+      viewAnswers: 'View my answers',
+      backHome: 'Back to home',
+      notFoundTitle: 'We could not find that',
+      notFoundBody: 'This course is not in your list. Head back home and pick one from there.',
+      errorTitle: 'We could not open this',
+    },
+
+    intro: {
+      eyebrow: (windowLabel: string, semester: string) => `${windowLabel} feedback, ${semester}`,
+      blurb: {
+        midterm: 'Tell your teacher how the course is going, so the second half can get better.',
+        final: 'Look back on the whole course. This helps your teacher and future batches.',
+      },
+      about: (minutes: number) => `About ${minutes} min`,
+      skipNote: 'You can skip anything. Your answers save as you go.',
+      start: 'Start',
+      continueFrom: (n: number) => `Continue from question ${n}`,
+      startOver: 'Start over',
+      draftFound: 'You started this one earlier.',
+    },
+
+    question: {
+      back: 'Back',
+      skip: 'Skip',
+      next: 'Next',
+      counter: (n: number, total: number) => `Question ${n} of ${total}`,
+      minutesLeft: (minutes: number) => `About ${minutes} min left`,
+      progress: 'Progress through the questions',
+      chipsLimit: (max: number) => `Pick up to ${max}`,
+      chipsMaxReached: (max: number) => `That is ${max}. Unselect one to pick a different one.`,
+      sliderNotSet: 'Not set yet',
+      sliderValue: (value: string, unit: string) => `${value} ${unit}`,
+      sliderHint: 'Drag the handle, or tap a number below.',
+      textPlaceholder: 'Write here, or skip this one.',
+      textLabel: 'Your comment',
+      startersLabel: 'Need a way in?',
+      keysHint: 'Tip: press a number key to choose, then Enter to continue.',
+      groupLabel: 'Choices',
+    },
+
+    review: {
+      title: 'Ready to send?',
+      headerTitle: 'Review',
+      summary: (answered: number, skipped: number) =>
+        `${answered} answered, ${skipped} skipped. You can change any of them first.`,
+      send: 'Send',
+      sendUpdate: 'Send update',
+      sending: 'Sending',
+      skipped: 'Skipped',
+      noAnswers:
+        'Answer at least one question so there is something to send. Tap any question below to jump to it.',
+      jumpHint: 'Tap a question to jump to it.',
+      editingNote: 'You already sent this one. Sending again replaces your earlier answers.',
+      sectionCount: (answered: number, total: number) => `${answered} of ${total} answered`,
+      sendError: 'We could not send that. Please try again.',
+      closedError: 'This window has just closed, so it can no longer take answers.',
+    },
+
+    success: {
+      title: 'Thank you',
+      updatedTitle: 'Updated',
+      body: 'Your feedback is on its way to your teacher, without your name.',
+      updatedBody: 'Your earlier answers have been replaced.',
+      editUntil: (date: string) => `You can edit your answers until ${date}.`,
+      backHome: 'Back to home',
+      another: 'Give feedback for another course',
+      nothingElse: 'That is everything that is open for you right now.',
+    },
+
+    snapshot: {
+      title: 'How your class answered',
+      subtitle: 'A quick look, all together. Never anyone’s individual answers.',
+      most: (pct: number, phrase: string, label: string) =>
+        `Most classmates (${pct}%) ${phrase} ${label}.`,
+      biggest: (pct: number, phrase: string, label: string) =>
+        `The biggest group of classmates (${pct}%) ${phrase} ${label}.`,
+      yours: (pct: number, phrase: string, label: string) =>
+        `You’re one of the ${pct}% who ${phrase} ${label}. That’s valid too.`,
+      yourAnswerTag: 'You',
+      notEnough: 'Class snapshot appears once more classmates have responded.',
+      chartLabel: (name: string, parts: string) => `${name}. ${parts}`,
+      chartPart: (label: string, pct: number) => `${label}: ${pct} percent`,
+    },
+
+    answers: {
+      title: 'Your answers',
+      closedNote: (date: string) =>
+        `This window closed on ${date}, so these answers are read-only.`,
+      skipped: 'Skipped',
+      back: 'Back',
+      empty: 'There are no answers to show.',
+    },
+  },
+
   common: {
     loading: 'Loading',
     retry: 'Try again',

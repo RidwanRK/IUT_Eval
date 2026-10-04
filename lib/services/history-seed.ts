@@ -3,8 +3,10 @@
  * we pretend the student gave feedback for most past windows and skipped a few, so the
  * History screen has both states. Deterministic, so a reset always gives the same history.
  */
+import { getQuestionSet } from '@/config/questions';
 import { getCatalog } from '@/lib/mock/catalog';
 import type {
+  Answer,
   AnonymousResponse,
   Enrollment,
   Student,
@@ -21,6 +23,47 @@ function hash(text: string): number {
     h = Math.imul(h, 16777619);
   }
   return h >>> 0;
+}
+
+const SAMPLE_COMMENTS = [
+  'The examples in class made the hard parts much easier to follow.',
+  'Sharing the slides a day earlier would help a lot.',
+  'Loved the practice problems before the exam.',
+];
+
+/** Plausible, deterministic answers for a seeded past response. Skips a few questions. */
+function mockAnswers(seed: string, window: WindowType): Answer[] {
+  const answers: Answer[] = [];
+  for (const question of getQuestionSet(window).questions) {
+    const h = hash(`${seed}:${question.id}`);
+    if (h % 9 === 0) continue; // skipped
+    switch (question.type) {
+      case 'scale': {
+        const n = question.options.length;
+        // Lean towards the upper-middle options.
+        const index = Math.min(n - 1, Math.floor((n - 1) / 2) + (h % 3) - (h % 7 === 0 ? 1 : 0));
+        answers.push({ questionId: question.id, value: question.options[Math.max(0, index)]!.id });
+        break;
+      }
+      case 'chips': {
+        const count = 1 + (h % 3);
+        const picked = question.options
+          .filter((o) => !o.exclusive)
+          .filter((_, i) => (i + h) % 4 === 0)
+          .slice(0, count);
+        if (picked.length > 0)
+          answers.push({ questionId: question.id, value: picked.map((o) => o.id) });
+        break;
+      }
+      case 'slider':
+        answers.push({ questionId: question.id, value: 3 + (h % 9) });
+        break;
+      case 'text':
+        if (h % 2 === 0) answers.push({ questionId: question.id, value: SAMPLE_COMMENTS[h % 3]! });
+        break;
+    }
+  }
+  return answers;
 }
 
 /** Skips roughly one in five past windows. */
@@ -50,7 +93,7 @@ export async function seedHistory(
           assignmentId,
           window: type,
           version: 1,
-          answers: [],
+          answers: mockAnswers(`${assignmentId}:${type}`, type),
         };
         const receipt: SubmissionReceipt = {
           id: `rcp-seed-${hash(`${student.id}:${assignmentId}:${type}:r`).toString(36)}`,
