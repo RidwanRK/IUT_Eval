@@ -23,7 +23,7 @@ async function loadGate(): Promise<Gate> {
 }
 
 /**
- * Guards student screens. No session goes to sign-in, no profile goes to onboarding.
+ * Guards student screens. No session goes to the landing page, no profile goes to onboarding.
  * Renders children only when we know who the student is.
  */
 export function RequireStudent({ children }: { children: ReactNode }) {
@@ -31,7 +31,8 @@ export function RequireStudent({ children }: { children: ReactNode }) {
   const { data, error, reload } = useService(loadGate);
 
   useEffect(() => {
-    if (data?.state === 'signin') router.replace('/student/sign-in');
+    // Signed out (or never signed in): back to the landing page, which has the sign-in buttons.
+    if (data?.state === 'signin') router.replace('/');
     if (data?.state === 'welcome') router.replace('/student/welcome');
   }, [data, router]);
 

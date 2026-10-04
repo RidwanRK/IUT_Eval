@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { OfflineNotice } from '@/components/layout/offline-notice';
 import { cn } from '@/lib/utils';
 
 /**
@@ -29,6 +30,7 @@ export function FlowFrame({
       )}
       <main id="main" className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className={cn('mx-auto w-full max-w-xl px-4 py-6 sm:py-10', className)}>
+          <OfflineNotice />
           {children}
         </div>
       </main>

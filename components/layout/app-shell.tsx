@@ -10,6 +10,7 @@ import { NotificationBell } from '@/components/features/notifications/notificati
 import { Avatar } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { BrandMark } from './brand-mark';
+import { OfflineNotice } from './offline-notice';
 import { useStudent } from './student-context';
 
 interface NavItem {
@@ -102,6 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           tabIndex={-1}
           className="mx-auto max-w-5xl px-4 pt-6 pb-[calc(var(--tabbar-height)+var(--safe-bottom)+1.5rem)] outline-none sm:px-6 sm:pt-8 lg:px-8 lg:pb-12"
         >
+          <OfflineNotice />
           {children}
         </main>
       </div>

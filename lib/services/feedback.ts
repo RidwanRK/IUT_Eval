@@ -67,7 +67,7 @@ export async function getFeedbackSession(
 }
 
 export class FeedbackError extends Error {
-  constructor(public readonly code: 'WINDOW_NOT_OPEN' | 'NO_ANSWERS' | 'NOT_FOUND') {
+  constructor(public readonly code: 'WINDOW_NOT_OPEN' | 'NO_ANSWERS' | 'NOT_FOUND' | 'OFFLINE') {
     super(code);
   }
 }
@@ -83,6 +83,11 @@ export async function submitFeedback(
   window: WindowType,
   answerMap: AnswerMap,
 ): Promise<SubmitResult> {
+  // Sending needs a connection (a real backend would fail anyway). Drafts stay safe on the device.
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    throw new FeedbackError('OFFLINE');
+  }
+
   const [student, now, context] = await Promise.all([
     requireProfile(),
     getNow(),

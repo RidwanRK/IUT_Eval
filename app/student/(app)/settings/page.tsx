@@ -1,4 +1,8 @@
-/** Placeholder. Settings are built in Stage 4. */
+import type { Metadata } from 'next';
+import { SettingsView } from '@/components/features/settings/settings-view';
+
+export const metadata: Metadata = { title: 'Settings' };
+
 export default function SettingsPage() {
-  return <h1 className="text-2xl font-extrabold tracking-tight">Settings</h1>;
+  return <SettingsView />;
 }

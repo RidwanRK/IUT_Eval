@@ -1,4 +1,8 @@
-/** Placeholder. Help and privacy are built in Stage 4. */
+import type { Metadata } from 'next';
+import { HelpView } from '@/components/features/help/help-view';
+
+export const metadata: Metadata = { title: 'Help and privacy' };
+
 export default function HelpPage() {
-  return <h1 className="text-2xl font-extrabold tracking-tight">Help and privacy</h1>;
+  return <HelpView />;
 }

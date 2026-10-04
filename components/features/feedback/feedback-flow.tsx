@@ -262,10 +262,13 @@ function FlowController({
       setDirection(1);
       setPhase('success');
     } catch (err) {
+      const code = err instanceof FeedbackError ? err.code : null;
       setSendError(
-        err instanceof FeedbackError && err.code === 'WINDOW_NOT_OPEN'
+        code === 'WINDOW_NOT_OPEN'
           ? t.review.closedError
-          : t.review.sendError,
+          : code === 'OFFLINE'
+            ? copy.offline.sendError
+            : t.review.sendError,
       );
     } finally {
       setSending(false);

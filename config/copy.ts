@@ -321,6 +321,122 @@ export const copy = {
     },
   },
 
+  settings: {
+    title: 'Settings',
+    subtitle: 'Your profile and reminders.',
+    profile: {
+      title: 'Your profile',
+      body: 'Private to you. It is never shown with your feedback.',
+      departmentChangeHint: 'Changing your department changes the courses you see.',
+      save: 'Save changes',
+      saving: 'Saving',
+      unchanged: 'No changes to save.',
+    },
+    reminders: {
+      title: 'Reminders',
+      body: 'Choose how we nudge you. You can turn all of these off.',
+      inApp: 'In the app',
+      email: 'By email',
+      windowOpens: 'When a feedback window opens',
+      closingSoon: 'A day before it closes',
+      emailLabel: 'Email for reminders',
+      emailSave: 'Save email',
+      emailSaved: 'Email saved.',
+      emailMissing: 'Add an email address to turn these on.',
+      emailMockNote: 'Email sending is a mock for now. Nothing is actually sent yet.',
+    },
+    install: {
+      title: 'Install the app',
+      body: 'Add IUT Eval to your home screen so it opens like any other app.',
+      button: 'Install app',
+      installing: 'Installing',
+      iosTitle: 'On iPhone or iPad',
+      iosSteps: [
+        'Tap the Share button in Safari.',
+        'Scroll down and tap Add to Home Screen.',
+        'Tap Add.',
+      ],
+      otherHint: 'Look for Install or Add to Home Screen in your browser menu.',
+      installed: 'Installed. Thanks!',
+    },
+    links: {
+      title: 'More',
+      privacy: 'Privacy',
+      help: 'Help',
+    },
+    signOut: 'Sign out',
+    signOutHint: 'Your profile stays on this device.',
+    errorTitle: 'We could not load your settings',
+  },
+
+  help: {
+    title: 'Help and privacy',
+    subtitle: 'Straight answers, in plain words.',
+    /** The university must review this copy before launch. See README. */
+    items: {
+      why: {
+        title: 'Why do you ask for my feedback?',
+        body: [
+          'Your feedback helps teachers get better. The midterm window is for the rest of the course, so your teacher can improve things while it is still running.',
+          'The final window looks back at the whole course, so future batches have a better time.',
+        ],
+      },
+      who: {
+        title: 'Who sees what?',
+        body: [
+          'Teachers see summaries and reviewed comments. They never see names.',
+          'Your classmates never see your answers. After you send, you see a small snapshot of how the class answered, all together. It only shows up once enough classmates have responded.',
+          'Your name is kept separate from your answers. Authorised administrators can link a response to a student, but only to handle abuse or misconduct. That is the only reason, and nobody else can.',
+        ],
+      },
+      change: {
+        title: 'Can I change my answers?',
+        body: [
+          'Yes, until the window closes. Open the course on Home and tap Edit response. Sending again replaces what you sent before.',
+          'Once a window closes, you can still read what you sent, but you cannot change it.',
+        ],
+      },
+      miss: {
+        title: 'What if I miss a window?',
+        body: [
+          'Nothing happens to you. The window just closes, and that is okay. You can take part in the next one.',
+        ],
+      },
+      comment: {
+        title: 'Writing a helpful comment',
+        body: [
+          'Be specific, be kind. Talk about the teaching and the course, not the person. Say what helped and what would help more.',
+        ],
+        examplesTitle: 'Two examples',
+        examples: [
+          'The worked examples in week 5 really helped me understand recursion. More of those before quizzes would help a lot.',
+          'The slides were hard to read from the back row. Bigger text, or sharing them a day earlier, would help me follow along.',
+        ],
+      },
+      serious: {
+        title: 'Something serious?',
+        body: [
+          'Feedback here is for improving teaching. If something serious has happened, like harassment or misconduct, please do not use a feedback form. Contact the office below instead.',
+        ],
+        contactTitle: 'Who to contact',
+      },
+    },
+    placeholderNote: 'These details are placeholders until the university confirms them.',
+    contactEmail: 'Email',
+    contactPhone: 'Phone',
+    contactHours: 'Hours',
+  },
+
+  offline: {
+    title: 'You are offline',
+    body: 'No worries. Anything you already answered is saved on this device and will be here when you are back.',
+    sendNote: 'Sending feedback needs a connection, so give it a try once you are back online.',
+    retry: 'Try again',
+    banner: 'You are offline. Drafts are saved on this device. Sending needs a connection.',
+    sendError:
+      'You are offline, so we could not send that. Your answers are saved. Try again once you are back online.',
+  },
+
   common: {
     loading: 'Loading',
     retry: 'Try again',
