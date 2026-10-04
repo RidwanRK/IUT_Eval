@@ -6,11 +6,21 @@ import { useState } from 'react';
 import { copy } from '@/config/copy';
 import { BottomSheet } from '@/components/ui/bottom-sheet';
 import { Button } from '@/components/ui/button';
+import { Select } from '@/components/ui/select';
 import { useToast } from '@/components/ui/toast';
+import { useService } from '@/lib/hooks/use-service';
+import {
+  SCENARIOS,
+  applyScenario,
+  getActiveScenarioId,
+  type ScenarioId,
+} from '@/lib/prototype/scenarios';
 import { signOut } from '@/lib/services/session';
 import { storage } from '@/lib/storage';
 
 const t = copy.prototypeTools;
+
+const scenarioOptions = SCENARIOS.map((s) => ({ value: s.id, label: s.label }));
 
 /**
  * PROTOTYPE ONLY. A floating button with demo helpers. Rendered from the root layout only
@@ -22,13 +32,21 @@ export function PrototypeTools() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const { data: scenarioId } = useService(getActiveScenarioId);
 
   // Keep the feedback screens clear: their buttons sit where this button would be.
   if (pathname.startsWith('/student/feedback')) return null;
 
+  const active = SCENARIOS.find((s) => s.id === scenarioId);
+
   function close(next: boolean) {
     setOpen(next);
     if (!next) setConfirmReset(false);
+  }
+
+  async function onScenario(id: ScenarioId) {
+    const scenario = await applyScenario(id);
+    toast(copy.toasts.scenarioChanged(scenario.label), 'info');
   }
 
   async function onSignOut() {
@@ -49,7 +67,7 @@ export function PrototypeTools() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="border-line-strong bg-surface shadow-raised hover:bg-sunken fixed right-4 z-40 flex min-h-12 items-center gap-2 rounded-full border px-4 text-sm font-semibold lg:bottom-6"
+        className="border-line-strong bg-surface shadow-raised hover:bg-sunken fixed right-4 z-40 flex size-12 items-center justify-center gap-2 rounded-full border text-sm font-semibold sm:w-auto sm:px-4 lg:bottom-6"
         style={{ bottom: 'calc(var(--tabbar-height) + var(--safe-bottom) + 0.75rem)' }}
       >
         <Wrench className="size-4" aria-hidden />
@@ -58,7 +76,14 @@ export function PrototypeTools() {
 
       <BottomSheet open={open} onOpenChange={close} title={t.title} description={t.description}>
         <p className="text-muted mb-4 text-sm">{t.description}</p>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
+          <Select
+            label={t.scenarioLabel}
+            hint={active?.description ?? t.scenarioHint}
+            options={scenarioOptions}
+            value={scenarioId ?? 'midterm-open'}
+            onChange={(e) => void onScenario(e.target.value as ScenarioId)}
+          />
           {confirmReset ? (
             <div className="rounded-control border-warn-line bg-warn-bg border p-4">
               <p className="text-warn-ink font-semibold">{t.resetConfirmTitle}</p>

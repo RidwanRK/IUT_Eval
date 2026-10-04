@@ -1,4 +1,8 @@
-/** Placeholder. History is built in Stage 2. */
+import type { Metadata } from 'next';
+import { HistoryView } from '@/components/features/history/history-view';
+
+export const metadata: Metadata = { title: 'History' };
+
 export default function HistoryPage() {
-  return <h1 className="text-2xl font-extrabold tracking-tight">History</h1>;
+  return <HistoryView />;
 }

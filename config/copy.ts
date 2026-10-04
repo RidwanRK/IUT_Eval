@@ -136,6 +136,82 @@ export const copy = {
     close: 'Close',
   },
 
+  windows: {
+    midterm: 'Midterm',
+    final: 'Final',
+    status: { upcoming: 'Upcoming', open: 'Open', closed: 'Closed' },
+    opensAfter: {
+      midterm: (date: string) => `Opens after midterms, around ${date}`,
+      final: (date: string) => `Opens after finals, around ${date}`,
+    },
+    closesToday: 'Closes today',
+    closesTomorrow: 'Closes tomorrow',
+    closesInDays: (days: number) => `Closes in ${days} days`,
+    closedOn: (date: string) => `Closed on ${date}`,
+    canChangeUntil: (date: string) => `You can change this until ${date}`,
+    roles: { theory: 'Theory', lab: 'Lab' },
+    aboutMinutes: (minutes: number) => `About ${minutes} min`,
+  },
+
+  dashboard: {
+    greeting: (name: string) => `Hi, ${name}`,
+    title: 'Home',
+    summary: {
+      open: (courses: number, minutes: number) =>
+        `${courses} ${courses === 1 ? 'course is' : 'courses are'} open for your feedback. Each takes about ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}.`,
+      nothingOpen: 'Nothing is open for your feedback right now.',
+      nextOpening: (date: string) => `The next window opens around ${date}.`,
+      caughtUpTitle: "You're all caught up",
+      caughtUpBody:
+        'Thanks for sharing. You can still change your answers until each window closes.',
+      allClosed: 'This semester’s feedback windows have closed. Thanks for taking part.',
+    },
+    actions: {
+      start: 'Start',
+      continue: 'Continue',
+      edit: 'Edit response',
+      view: 'View my answers',
+    },
+    draftProgress: (answered: number, total: number) => `${answered} of ${total} answered`,
+    chips: {
+      draft: 'Draft saved',
+      submitted: 'Submitted',
+    },
+    courseCredits: (credits: number) => `${credits} credits`,
+    instructorLabel: 'Teacher',
+    emptyTitle: 'No courses yet',
+    emptyBody:
+      'We could not find any courses for this semester. They will show up here once they are added.',
+    errorTitle: 'We could not load your courses',
+  },
+
+  history: {
+    title: 'History',
+    subtitle: 'Feedback you gave in past semesters.',
+    emptyTitle: 'Nothing here yet',
+    emptyBody: 'Once a semester is over, your courses will show up here.',
+    submitted: 'Submitted',
+    notSubmitted: 'Not submitted',
+    viewAnswers: 'View my answers',
+    courseCount: (n: number) => `${n} ${n === 1 ? 'course' : 'courses'}`,
+    errorTitle: 'We could not load your history',
+  },
+
+  notifications: {
+    title: 'Notifications',
+    description: 'Reminders about feedback windows.',
+    empty: 'Nothing new right now.',
+    emptyBody: 'When a feedback window opens, you will see it here.',
+    bell: (unread: number) => (unread === 0 ? 'Notifications' : `Notifications, ${unread} unread`),
+    windowOpen: (window: string, course: string) => `${window} feedback for ${course} is open`,
+    closingSoon: (when: string, course: string, window: string) =>
+      `${when}: ${course} ${window.toLowerCase()} feedback`,
+    closesTomorrowShort: 'Closes tomorrow',
+    closesTodayShort: 'Closes today',
+    teachersWaiting: (n: number) => `${n} teachers to give feedback on`,
+    errorBody: 'We could not load your notifications.',
+  },
+
   common: {
     loading: 'Loading',
     retry: 'Try again',

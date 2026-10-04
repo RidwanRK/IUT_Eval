@@ -218,10 +218,13 @@ export interface AppNotification {
   /** Stable id, so read state survives refreshes. */
   id: string;
   kind: 'window-open' | 'closing-soon';
-  assignmentId: string;
+  /** One reminder per course and window, however many teachers the course has. */
+  offeringId: string;
   window: WindowType;
   title: string;
-  /** Relative text such as "Closes tomorrow". */
+  /** Short detail line, for example the teacher and "Closes in 3 days". */
   body: string;
+  /** Where tapping the reminder goes. */
+  href: string;
   read: boolean;
 }

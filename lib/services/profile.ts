@@ -37,3 +37,10 @@ export async function saveProfile(input: ProfileInput): Promise<Student> {
   }
   return student;
 }
+
+/** For services that only make sense with a signed-in student. */
+export async function requireProfile(): Promise<Student> {
+  const profile = await getProfile();
+  if (!profile) throw new Error('No student profile yet');
+  return profile;
+}

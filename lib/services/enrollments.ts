@@ -5,6 +5,7 @@
 import { getCatalog } from '@/lib/mock/catalog';
 import { KEYS, storage } from '@/lib/storage';
 import type { Enrollment, Student } from '@/lib/types';
+import { seedHistory } from './history-seed';
 
 export async function getEnrollments(): Promise<Enrollment[]> {
   return storage.get<Enrollment[]>(KEYS.enrollments, []);
@@ -20,5 +21,6 @@ export async function seedEnrollments(student: Student): Promise<Enrollment[]> {
       offeringId: offering.id,
     }));
   storage.set(KEYS.enrollments, enrollments);
+  await seedHistory(student, enrollments);
   return enrollments;
 }
