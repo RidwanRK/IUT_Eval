@@ -1,0 +1,153 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens for IUT Eval: red and white.
+  Red (#C8102E) is the brand colour, so it is never used to mean "error" or "bad".
+  Warnings and validation use the amber tokens, with an icon and text.
+  Contrast: brand on white is about 5.9:1, ink on canvas about 16:1, muted on canvas about 5.9:1.
+*/
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #c8102e;
+  --color-brand-hover: #a90d26;
+  --color-brand-pressed: #8a0a1f;
+  --color-brand-50: #fdf2f4;
+  --color-brand-100: #fbdfe4;
+  --color-brand-200: #f5b9c3;
+
+  --color-ink: #17181c;
+  --color-muted: #5a6069;
+  --color-subtle: #6b7280;
+
+  --color-surface: #ffffff;
+  --color-canvas: #f7f6f4;
+  --color-sunken: #f0eeeb;
+  --color-line: #e7e4e0;
+  --color-line-strong: #cfcac4;
+  /* Borders of form controls and switch tracks: 3:1 against white (WCAG non-text contrast). */
+  --color-control: #8a8f98;
+
+  --color-warn-bg: #fff6dd;
+  --color-warn-line: #f0d189;
+  --color-warn-ink: #6b4400;
+  --color-warn-icon: #a15c00;
+
+  --color-ok-bg: #e9f4ec;
+  --color-ok-ink: #1e5b37;
+
+  --radius-card: 1.25rem;
+  --radius-control: 0.875rem;
+
+  --shadow-card: 0 1px 2px rgb(23 24 28 / 0.04), 0 4px 16px rgb(23 24 28 / 0.05);
+  --shadow-raised: 0 2px 4px rgb(23 24 28 / 0.06), 0 12px 32px rgb(23 24 28 / 0.1);
+
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-fade-out: fade-out 120ms ease-in;
+  --animate-pop-in: pop-in 180ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  --animate-sheet-in: sheet-in 240ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  --animate-sheet-out: sheet-out 180ms ease-in;
+  --animate-pulse-soft: pulse-soft 1.6s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes sheet-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes sheet-out {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-height: 4.5rem;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible focus everywhere. Dark ring with a gap so it shows on red and white alike. */
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background: var(--color-brand-100);
+}
+
+/* Keep numbers steady while counting. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reduced motion: no animations or transitions beyond an instant state change. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

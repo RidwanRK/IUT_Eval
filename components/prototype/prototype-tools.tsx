@@ -1,0 +1,93 @@
+'use client';
+
+import { LogOut, RotateCcw, Wrench } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { copy } from '@/config/copy';
+import { BottomSheet } from '@/components/ui/bottom-sheet';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/toast';
+import { signOut } from '@/lib/services/session';
+import { storage } from '@/lib/storage';
+
+const t = copy.prototypeTools;
+
+/**
+ * PROTOTYPE ONLY. A floating button with demo helpers. Rendered from the root layout only
+ * when NEXT_PUBLIC_PROTOTYPE_TOOLS is not "false". Delete this folder to remove it.
+ */
+export function PrototypeTools() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+
+  // Keep the feedback screens clear: their buttons sit where this button would be.
+  if (pathname.startsWith('/student/feedback')) return null;
+
+  function close(next: boolean) {
+    setOpen(next);
+    if (!next) setConfirmReset(false);
+  }
+
+  async function onSignOut() {
+    await signOut();
+    close(false);
+    toast(copy.toasts.signedOut, 'info');
+    router.push('/');
+  }
+
+  function onReset() {
+    storage.clearAll();
+    // Full reload so every screen starts from a clean slate.
+    window.location.replace('/');
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="border-line-strong bg-surface shadow-raised hover:bg-sunken fixed right-4 z-40 flex min-h-12 items-center gap-2 rounded-full border px-4 text-sm font-semibold lg:bottom-6"
+        style={{ bottom: 'calc(var(--tabbar-height) + var(--safe-bottom) + 0.75rem)' }}
+      >
+        <Wrench className="size-4" aria-hidden />
+        <span className="sr-only sm:not-sr-only">{t.open}</span>
+      </button>
+
+      <BottomSheet open={open} onOpenChange={close} title={t.title} description={t.description}>
+        <p className="text-muted mb-4 text-sm">{t.description}</p>
+        <div className="flex flex-col gap-3">
+          {confirmReset ? (
+            <div className="rounded-control border-warn-line bg-warn-bg border p-4">
+              <p className="text-warn-ink font-semibold">{t.resetConfirmTitle}</p>
+              <p className="text-warn-ink mt-1 text-sm">{t.resetConfirmBody}</p>
+              <div className="mt-4 flex gap-3">
+                <Button
+                  variant="secondary"
+                  onClick={() => setConfirmReset(false)}
+                  className="flex-1"
+                >
+                  {t.cancel}
+                </Button>
+                <Button onClick={onReset} className="flex-1">
+                  {t.resetConfirm}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Button variant="secondary" block onClick={() => setConfirmReset(true)}>
+              <RotateCcw className="size-4" aria-hidden />
+              {t.reset}
+            </Button>
+          )}
+          <Button variant="secondary" block onClick={onSignOut}>
+            <LogOut className="size-4" aria-hidden />
+            {t.signOut}
+          </Button>
+        </div>
+      </BottomSheet>
+    </>
+  );
+}
