@@ -176,6 +176,7 @@ export const copy = {
     chips: {
       draft: 'Draft saved',
       submitted: 'Submitted',
+      waiting: 'Feedback waiting',
     },
     courseCredits: (credits: number) => `${credits} credits`,
     instructorLabel: 'Teacher',

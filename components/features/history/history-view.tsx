@@ -48,13 +48,11 @@ function WindowStatusLine({ row, window }: { row: HistoryRow; window: HistoryWin
 function SemesterGroup({
   label,
   rows,
-  defaultOpen,
 }: {
   label: string;
   rows: HistoryRow[];
-  defaultOpen: boolean;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  const [open, setOpen] = useState(false);
   const courseCount = new Set(rows.map((r) => r.course.id)).size;
 
   return (
@@ -124,12 +122,11 @@ export function HistoryView() {
           transition={{ duration: 0.25 }}
           className="mx-auto flex w-full max-w-2xl flex-col gap-4 lg:mx-0"
         >
-          {data?.map((group, i) => (
+          {data?.map((group) => (
             <SemesterGroup
               key={group.semester.id}
               label={group.semester.label}
               rows={group.rows}
-              defaultOpen={i === 0}
             />
           ))}
         </motion.div>

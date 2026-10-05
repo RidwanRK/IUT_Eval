@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useService } from '@/lib/hooks/use-service';
 import { getDashboard } from '@/lib/services/dashboard';
 import { summarizeDashboard } from '@/lib/services/dashboard-summary';
-import { CourseCard } from './course-card';
+import { CourseItem } from './course-item';
 import { SummaryLine } from './summary-line';
 
 const t = copy.dashboard;
@@ -20,16 +20,14 @@ function DashboardSkeleton() {
   return (
     <div role="status" aria-label={copy.common.loading} className="flex flex-col gap-4">
       <Skeleton className="h-16 w-full" />
-      <div className="grid items-start gap-4 lg:grid-cols-2">
-        {[0, 1].map((i) => (
-          <Card key={i} className="space-y-4">
+      <Card padded={false} className="divide-line divide-y">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="space-y-2 px-5 py-4 sm:px-6">
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-6 w-2/3" />
-            <Skeleton className="h-28 w-full" />
-            <Skeleton className="h-28 w-full" />
-          </Card>
+          </div>
         ))}
-      </div>
+      </Card>
     </div>
   );
 }
@@ -58,18 +56,19 @@ export function DashboardView() {
       ) : data ? (
         <>
           <SummaryLine summary={summarizeDashboard(data.courses)} />
-          <div className="grid items-start gap-4 lg:grid-cols-2">
-            {data.courses.map((card, i) => (
-              <motion.div
-                key={card.offering.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, delay: Math.min(i, 5) * 0.04 }}
-              >
-                <CourseCard card={card} now={data.now} />
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <Card padded={false} className="overflow-hidden">
+              <ul className="divide-line divide-y">
+                {data.courses.map((card) => (
+                  <CourseItem key={card.offering.id} card={card} now={data.now} />
+                ))}
+              </ul>
+            </Card>
+          </motion.div>
         </>
       ) : null}
     </div>
